@@ -9,21 +9,27 @@ import okhttp3.sse.EventSource;
 
 public class TextCompletionClient extends CompletionClient {
 
-  public TextCompletionClient(OpenAIClient client) {
-    super(client, "https://api.openai.com/v1/completions");
-  }
+    private static final String API_URL = "https://api.openai.com/v1/completions";
 
-  @Override
-  protected TextCompletionEventSourceListener getEventListener(CompletionEventListener listeners) {
-    return new TextCompletionEventSourceListener(listeners);
-  }
+    public TextCompletionClient(OpenAIClient client) {
+        super(client, API_URL);
+    }
 
-  @Override
-  protected ClientCode getClientCode() {
-    return ClientCode.TEXT_COMPLETION;
-  }
+    public TextCompletionClient(OpenAIClient client, String apiUrl) {
+        super(client, apiUrl);
+    }
 
-  public EventSource stream(TextCompletionRequest requestBody, CompletionEventListener listeners) {
-    return createNewEventSource(requestBody, listeners);
-  }
+    @Override
+    protected TextCompletionEventSourceListener getEventListener(CompletionEventListener listeners) {
+        return new TextCompletionEventSourceListener(listeners);
+    }
+
+    @Override
+    protected ClientCode getClientCode() {
+        return ClientCode.TEXT_COMPLETION;
+    }
+
+    public EventSource stream(TextCompletionRequest requestBody, CompletionEventListener listeners) {
+        return createNewEventSource(requestBody, listeners);
+    }
 }

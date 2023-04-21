@@ -74,12 +74,20 @@ public class OpenAIClient {
       return new ChatCompletionClient(new OpenAIClient(this));
     }
 
-    public TextCompletionClient buildTextCompletionClient() {
-      return new TextCompletionClient(new OpenAIClient(this));
-    }
+        public ChatCompletionClient buildChatCompletionClient(String customApiHost) {
+            return new ChatCompletionClient(new OpenAIClient(this), customApiHost);
+        }
 
-    public DashboardClient buildDashboardClient() {
-      return new DashboardClient(new OpenAIClient(this));
+        public TextCompletionClient buildTextCompletionClient() {
+            return new TextCompletionClient(new OpenAIClient(this));
+        }
+
+        public TextCompletionClient buildTextCompletionClient(String customApiHost) {
+            return new TextCompletionClient(new OpenAIClient(this), customApiHost);
+        }
+
+        public DashboardClient buildDashboardClient() {
+            return new DashboardClient(new OpenAIClient(this));
+        }
     }
-  }
 }
